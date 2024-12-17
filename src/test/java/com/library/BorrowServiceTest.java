@@ -5,9 +5,11 @@ import com.library.dao.StudentDAO;
 import com.library.model.Book;
 import com.library.model.Student;
 import com.library.service.BorrowService;
+import com.library.util.DbConnection;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Optional;
 
@@ -24,7 +26,10 @@ class BorrowServiceTest {
         // Ex : Connection connection = DbConnection.getTestConnection();
         // Ici, on part du principe que bookDAO et studentDAO gèrent déjà la connexion.
 
-        bookDAO = new BookDAO();
+        Connection connection = DbConnection.getConnection();
+
+        // Passer la connexion à BookDAO
+        BookDAO bookDAO = new BookDAO(connection);
         borrowService = new BorrowService(bookDAO, studentDAO);
 
         // Ajouter un étudiant
