@@ -21,7 +21,7 @@ public class BorrowDAO {
             while (rs.next()) {
                 // Créez les objets Student et Book appropriés
                 Student student = new Student(rs.getInt("student_id"), rs.getString("student_name"));
-                Book book = new Book(rs.getInt("book_id"), rs.getString("book_title"));
+                Book book = new Book(rs.getInt("book_id"), rs.getString("book_title"), rs.getString("book_author"));
 
                 // Créez un objet Borrow avec les données extraites
                 Borrow borrow = new Borrow(

@@ -1,10 +1,11 @@
-package com.library.test;
+package com.library;
 
 import com.library.dao.StudentDAO;
-import com.library.model.Student;
 import com.library.service.StudentService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -14,33 +15,33 @@ class StudentServiceTest {
 
     @BeforeEach
     void setUp() {
-        studentDAO = new StudentDAO();
+
         studentService = new StudentService(studentDAO);
     }
 
     @Test
-    void testAddStudent() {
+    void testAddStudent() throws SQLException {
         studentService.addStudent(1, "Alice", "alice@example.com");
         assertEquals(1, studentDAO.getAllStudents().size());
         assertEquals("Alice", studentDAO.getStudentById(1).get().getName());
     }
 
     @Test
-    void testUpdateStudent() {
+    void testUpdateStudent() throws SQLException {
         studentService.addStudent(1, "Alice", "alice@example.com");
         studentService.updateStudent(1, "Alice Smith", "alice.smith@example.com");
         assertEquals("Alice Smith", studentDAO.getStudentById(1).get().getName());
     }
 
     @Test
-    void testDeleteStudent() {
+    void testDeleteStudent() throws SQLException {
         studentService.addStudent(1, "Alice", "alice@example.com");
         studentService.deleteStudent(1);
         assertTrue(studentDAO.getStudentById(1).isEmpty());
     }
 
     @Test
-    void testGetAllStudents() {
+    void testGetAllStudents() throws SQLException {
         studentService.addStudent(1, "Alice", "alice@example.com");
         studentService.addStudent(2, "Bob", "bob@example.com");
         assertEquals(2, studentDAO.getAllStudents().size());

@@ -5,7 +5,7 @@ public class Student {
     private String name;
 
     // Constructeur par défaut
-    public Student() {
+    public Student(int i, String alice, String mail) {
     }
 
     // Constructeur complet
@@ -30,4 +30,18 @@ public class Student {
     public void setName(String name) {
         this.name = name;
     }
+
+    public Student(String name) {
+        this.name = name;
+    }
+
+    public Student get() {
+        return this;
+    }
+
+    public boolean isEmpty() {
+        return false;
+    }
 }
+
+

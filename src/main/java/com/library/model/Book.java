@@ -9,7 +9,7 @@ public class Book {
     private String isbn;
 
     // Constructeur par défaut
-    public Book() {
+    public Book(int i, String javaProgramming, String johnDoe, boolean b) {
     }
 
     // Constructeur complet
@@ -22,6 +22,12 @@ public class Book {
 
     // Constructeur additionnel si nécessaire
     public Book(String title, String author) {
+        this.title = title;
+        this.author = author;
+    }
+    // Constructeur avec id, titre et auteur
+    public Book(int id, String title, String author) {
+        this.id = id;
         this.title = title;
         this.author = author;
     }
@@ -74,5 +80,17 @@ public class Book {
 
     public void setIsbn(String isbn) {
         this.isbn = isbn;
+    }
+
+    public boolean isAvailable() {
+        return true;
+    }
+
+    public Book get() {
+        return this;
+    }
+
+    public boolean isEmpty() {
+        return false;
     }
 }

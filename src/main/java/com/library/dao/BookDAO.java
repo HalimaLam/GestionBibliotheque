@@ -14,12 +14,12 @@ public class BookDAO {
         String sql = "INSERT INTO books (title, author, isbn, published_year) VALUES (?, ?, ?, ?)";
         try (Connection connection = DbConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
-             
+
             statement.setString(1, book.getTitle());
             statement.setString(2, book.getAuthor());
             statement.setString(3, book.getIsbn());
             statement.setInt(4, book.getYear());
-            
+
             int rowsInserted = statement.executeUpdate();
             if (rowsInserted > 0) {
                 System.out.println("Livre inséré avec succès !");
@@ -33,15 +33,15 @@ public class BookDAO {
     public Book getBookByIsbn(String isbn) {
         String sql = "SELECT * FROM books WHERE isbn = ?";
         Book book = null;
-        
+
         try (Connection connection = DbConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
-             
+
             statement.setString(1, isbn);
             ResultSet resultSet = statement.executeQuery();
-            
+
             if (resultSet.next()) {
-                book = new Book();
+                book = new Book(1, "Java Programming", "John Doe", true);
                 book.setId(resultSet.getInt("id"));
                 book.setTitle(resultSet.getString("title"));
                 book.setAuthor(resultSet.getString("author"));
@@ -51,21 +51,21 @@ public class BookDAO {
         } catch (SQLException e) {
             System.err.println("Erreur lors de la récupération du livre : " + e.getMessage());
         }
-        
+
         return book;
     }
-    
+
     // Récupérer tous les livres
     public List<Book> getAllBooks() {
         List<Book> books = new ArrayList<>();
         String sql = "SELECT * FROM books";
-        
+
         try (Connection connection = DbConnection.getConnection();
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(sql)) {
-             
+
             while (resultSet.next()) {
-                Book book = new Book();
+                Book book = new Book(1, "Java Programming", "John Doe", true);
                 book.setId(resultSet.getInt("id"));
                 book.setTitle(resultSet.getString("title"));
                 book.setAuthor(resultSet.getString("author"));
@@ -76,7 +76,20 @@ public class BookDAO {
         } catch (SQLException e) {
             System.err.println("Erreur lors de la récupération des livres : " + e.getMessage());
         }
-        
+
         return books;
+    }
+
+    public Book getBookById(int id) {
+        return null;
+    }
+
+    public void delete(int id) {
+    }
+
+    public void update(Book book) {
+    }
+
+    public void addBook(Book book) {
     }
 }

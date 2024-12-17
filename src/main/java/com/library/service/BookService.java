@@ -8,7 +8,7 @@ public class BookService {
     private BookDAO bookDAO;  // Utilisation de DAO pour la gestion des livres
 
     // Constructeur qui initialise l'objet BookDAO
-    public BookService() {
+    public BookService(BookDAO bookDAO) {
         this.bookDAO = new BookDAO();
     }
 
@@ -38,5 +38,8 @@ public class BookService {
     // Mise à jour des informations d'un livre
     public void updateBook(Book book) {
         bookDAO.update(book);
+    }
+
+    public void updateBook(int i, String advancedJava, String janeDoe, boolean b) {
     }
 }

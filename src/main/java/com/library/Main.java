@@ -1,3 +1,5 @@
+package com.library;
+import com.library.dao.BookDAO;
 import com.library.service.BorrowService;
 import com.library.service.BookService;
 import com.library.service.StudentService;
@@ -13,14 +15,12 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         // Création des services
-        BookService bookService = new BookService();
-        Student student = new Student(1, "John Doe");
+        BookDAO bookDAO = null;
+        BookService bookService = new BookService(bookDAO);
         StudentService studentService = new StudentService();
         BorrowDAO borrowDAO = new BorrowDAO();  // Création de BorrowDAO
         BorrowService borrowService = new BorrowService(borrowDAO);  // Passer BorrowDAO au constructeur de BorrowService
-        Book book = new Book("Effective Java", "Joshua Bloch", "123456", 2017);
-        Borrow borrow = new Borrow(1, student, book, new Date(), new Date());
-        
+
         boolean running = true;
 
         while (running) {
@@ -43,23 +43,23 @@ public class Main {
                     String title = scanner.nextLine();
                     System.out.print("Entrez l'auteur du livre: ");
                     String author = scanner.nextLine();
-                    Book book = new Book(title, author);
-                    bookService.addBook(book);
+                    Book book = new Book(title, author);  // Création d'un nouveau livre
+                    bookService.addBook(book);  // Ajout du livre au service
                     break;
 
                 case 2:
-                    bookService.displayBooks();
+                    bookService.displayBooks();  // Affichage des livres via le service
                     break;
 
                 case 3:
                     System.out.print("Entrez le nom de l'étudiant: ");
                     String studentName = scanner.nextLine();
-                    Student student = new Student(studentName);
-                    studentService.addStudent(student);
+                    Student student = new Student(studentName);  // Création d'un étudiant
+                    studentService.addStudent(student);  // Ajout de l'étudiant au service
                     break;
 
                 case 4:
-                    studentService.displayStudents();
+                    studentService.displayStudents();  // Affichage des étudiants
                     break;
 
                 case 5:
@@ -67,23 +67,23 @@ public class Main {
                     int studentId = scanner.nextInt();
                     System.out.print("Entrez l'ID du livre: ");
                     int bookId = scanner.nextInt();
-                    Student studentForBorrow = studentService.findStudentById(studentId);
-                    Book bookForBorrow = bookService.findBookById(bookId);
+                    Student studentForBorrow = studentService.findStudentById(studentId);  // Récupérer l'étudiant
+                    Book bookForBorrow = bookService.findBookById(bookId);  // Récupérer le livre
                     if (studentForBorrow != null && bookForBorrow != null) {
                         // Créer un objet Borrow avec les informations nécessaires
-                        Borrow borrow = new Borrow(studentForBorrow.getName(), bookForBorrow.getTitle(), new Date(), null);
-                        borrowService.borrowBook(borrow);  // Appel de la méthode avec l'objet Borrow
+                        Borrow borrow = new Borrow(0,studentForBorrow, bookForBorrow, new Date(), null);
+                        borrowService.borrowBook(borrow);  // Emprunter le livre via le service
                     } else {
                         System.out.println("Étudiant ou livre introuvable.");
                     }
                     break;
 
                 case 6:
-                    borrowService.displayBorrows();
+                    borrowService.displayBorrows();  // Affichage des emprunts
                     break;
 
                 case 7:
-                    running = false;
+                    running = false;  // Quitter le programme
                     System.out.println("Au revoir!");
                     break;
 

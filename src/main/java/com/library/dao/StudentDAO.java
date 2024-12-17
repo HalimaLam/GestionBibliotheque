@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 public class StudentDAO {
+
     private final Connection connection;
     private static final Logger LOGGER = Logger.getLogger(StudentDAO.class.getName());
 
@@ -15,7 +15,7 @@ public class StudentDAO {
         this.connection = connection;
     }
 
-    public void addStudent(Student student) {
+    public void addStudent(Student student) throws SQLException {
         String query = "INSERT INTO students (id, name) VALUES (?, ?)";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setInt(1, student.getId());
@@ -23,10 +23,11 @@ public class StudentDAO {
             statement.executeUpdate();
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, "Erreur lors de l'ajout de l'étudiant", e);
+            throw e;
         }
     }
 
-    public Student getStudentById(int id) {
+    public Student getStudentById(int id) throws SQLException {
         String query = "SELECT * FROM students WHERE id = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setInt(1, id);
@@ -39,11 +40,12 @@ public class StudentDAO {
             }
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, "Erreur lors de la récupération de l'étudiant", e);
+            throw e;  // Propagation de l'exception
         }
         return null;
     }
 
-    public List<Student> getAllStudents() {
+    public List<Student> getAllStudents() throws SQLException {
         List<Student> students = new ArrayList<>();
         String query = "SELECT * FROM students";
         try (PreparedStatement statement = connection.prepareStatement(query);
@@ -53,6 +55,7 @@ public class StudentDAO {
             }
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, "Erreur lors de la récupération des étudiants", e);
+            throw e;  // Propagation de l'exception
         }
         return students;
     }
