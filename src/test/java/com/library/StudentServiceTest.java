@@ -1,6 +1,7 @@
 package com.library;
 
 import com.library.dao.StudentDAO;
+import com.library.model.Student;
 import com.library.service.StudentService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,8 +15,9 @@ class StudentServiceTest {
     private StudentDAO studentDAO;
 
     @BeforeEach
-    void setUp() {
-
+    void setUp() throws SQLException {
+        studentDAO = new StudentDAO();
+        studentDAO.addStudent(new Student(1, "Alice", "alice@example.com"));
         studentService = new StudentService(studentDAO);
     }
 

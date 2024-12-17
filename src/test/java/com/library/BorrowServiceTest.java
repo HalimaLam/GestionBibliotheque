@@ -32,8 +32,8 @@ class BorrowServiceTest {
         studentDAO.addStudent(new Student(2, "Bob", "bob@example.com"));
 
         // Ajouter des livres
-        bookDAO.addBook(new Book(1, "Java Programming", "John Doe", true));
-        bookDAO.addBook(new Book(2, "Advanced Java", "Jane Doe", true));
+        bookDAO.add(new Book(1, "Java Programming", "John Doe", true));
+        bookDAO.add(new Book(2, "Advanced Java", "Jane Doe", true));
     }
 
     @Test
