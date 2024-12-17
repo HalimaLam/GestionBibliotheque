@@ -7,15 +7,24 @@ import com.library.model.Book;
 import com.library.model.Student;
 import com.library.model.Borrow;
 import com.library.dao.BorrowDAO;  // Importer BorrowDAO
+import com.library.util.DbConnection;
+
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         Scanner scanner = new Scanner(System.in);
 
         // Création des services
-        BookDAO bookDAO = null;
+        Connection connection = DbConnection.getConnection();
+
+        // Instancier BookDAO
+        BookDAO bookDAO = new BookDAO(connection);
+
+        // Passer BookDAO à BookService
         BookService bookService = new BookService(bookDAO);
         StudentService studentService = new StudentService();
         BorrowDAO borrowDAO = new BorrowDAO();  // Création de BorrowDAO
