@@ -8,6 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BookDAO {
+    private final Connection connection;
+    public BookDAO(Connection connection) {
+        this.connection = connection;
+    }
 
     // Ajouter un nouveau livre dans la base de données
     public void add(Book book) {

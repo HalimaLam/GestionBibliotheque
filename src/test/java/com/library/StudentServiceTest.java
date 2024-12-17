@@ -3,9 +3,11 @@ package com.library;
 import com.library.dao.StudentDAO;
 import com.library.model.Student;
 import com.library.service.StudentService;
+import com.library.util.DbConnection;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -16,8 +18,8 @@ class StudentServiceTest {
 
     @BeforeEach
     void setUp() throws SQLException {
-        studentDAO = new StudentDAO();
-        studentDAO.addStudent(new Student(1, "Alice", "alice@example.com"));
+        Connection connection = DbConnection.getConnection();
+        studentDAO = new StudentDAO(connection);
         studentService = new StudentService(studentDAO);
     }
 
