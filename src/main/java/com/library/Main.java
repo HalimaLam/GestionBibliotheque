@@ -52,7 +52,18 @@ public class Main {
                     String title = scanner.nextLine();
                     System.out.print("Entrez l'auteur du livre: ");
                     String author = scanner.nextLine();
-                    Book book = new Book(title, author);  // Création d'un nouveau livre
+                    System.out.print("Entrez l'isbn du livre: ");
+                    String isbn = scanner.nextLine();
+                    System.out.print("Entrez la date du livre: ");
+                    String year = scanner.nextLine();
+
+                    // Vérification de l'ISBN avant de continuer
+                    if (isbn == null || isbn.trim().isEmpty()) {
+                        System.out.println("L'ISBN ne peut pas être vide.");
+                        break;  // Revenir au menu sans ajouter le livre
+                    }
+
+                    Book book = new Book(title, author, Integer.parseInt(year),isbn);  // Création d'un nouveau livre
                     bookService.addBook(book);  // Ajout du livre au service
                     break;
 

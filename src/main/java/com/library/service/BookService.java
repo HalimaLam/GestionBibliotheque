@@ -18,21 +18,12 @@ public class BookService {
 
     // Ajouter un livre
     public void addBook(Book book) {
-        if (book == null) {
-            throw new IllegalArgumentException("Le livre ne peut pas être null");
-        }
-
-        // Exemple de logique métier : vérifier si le titre ou l'ISBN sont vides
-        if (book.getTitle() == null || book.getTitle().isEmpty()) {
-            throw new IllegalArgumentException("Le titre du livre ne peut pas être vide");
-        }
         if (book.getIsbn() == null || book.getIsbn().isEmpty()) {
             throw new IllegalArgumentException("L'ISBN du livre ne peut pas être vide");
         }
-
-        // Appeler la méthode `add` du DAO
-        bookDAO.add(book);
+        bookDAO.add(book);  // Méthode qui ajoute le livre à la base de données
     }
+
 
     // Afficher tous les livres
     public void displayBooks() {

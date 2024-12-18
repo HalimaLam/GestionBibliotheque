@@ -12,12 +12,13 @@ public class Book {
     public Book(int i, String javaProgramming, String johnDoe, boolean b) {
     }
 
+
     // Constructeur complet
-    public Book(String title, String author, String publisher, int year) {
+    public Book(String title, String author, int year, String isbn) {
         this.title = title;
         this.author = author;
-        this.publisher = publisher;
         this.year = year;
+        this.isbn = isbn;
     }
 
     // Constructeur additionnel si nécessaire
@@ -30,6 +31,14 @@ public class Book {
         this.id = id;
         this.title = title;
         this.author = author;
+    }
+
+    public Book(int id,String title, String author, String isbn) {
+        this.id = id;
+        this.title = title;
+        this.author = author;
+        this.isbn = isbn;
+
     }
 
     // Getters et Setters
